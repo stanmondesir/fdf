@@ -6,7 +6,7 @@
 /*   By: smondesi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 12:22:46 by smondesi          #+#    #+#             */
-/*   Updated: 2019/05/21 12:15:43 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/05/21 12:26:29 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int main()
 			if(p == 2)
 				ligne (mlx_ptr, win_ptr, screen, last);
 		//				mlx_pixel_put (mlx_ptr, win_ptr, screen.x, screen.y,);
-			mlx_pixel_put (mlx_ptr, win_ptr, coord.x * 50, (coord.y * 50  - coord.z * 5), 16777215 - coord.z * 50 );
+		//	mlx_pixel_put (mlx_ptr, win_ptr, coord.x * 50, (coord.y * 50  - coord.z * 5), 16777215 - coord.z * 50 );
 		}
 		p = 2;
 		coord.x = 0;
