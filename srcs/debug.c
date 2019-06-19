@@ -1,6 +1,6 @@
 #include "../incl/fdf.h"
 
-static void print_array(int *array, int size)
+void print_array(int *array, int size)
 {
 	int i;
 
@@ -10,7 +10,7 @@ static void print_array(int *array, int size)
 	{
 		ft_putnbr(array[i]);
 		if (i < size - 1)
-			ft_putchar(',');
+			ft_putstr(", ");
 		i++;
 	}
 	ft_putendl("]");
@@ -18,9 +18,12 @@ static void print_array(int *array, int size)
 
 void print_map(t_map *map)
 {
-	while (map->next != NULL)
+	t_map *cpy;
+
+	cpy = map;
+	while (cpy != NULL)
 	{
-		print_array(map->row.content, map->row.len);
-		map = map->next;
+		print_array(cpy->row.content, cpy->row.len);
+		cpy = cpy->next;
 	}
 }

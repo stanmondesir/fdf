@@ -48,8 +48,10 @@ typedef struct s_map {
 //DEBUG FUNCTION !!
 //REMOVE AT END OF PROJECT !!!!!!!
 void print_map(t_map *map);
+void print_array(int *array, int size);
 //DEBUG FUNCTION !!
 
 Image	create_img(int width, int height, void *mlx_ptr);
 t_map	*read_map(char *fp);
+void 	draw_line(t_fdf fdf, int start_x, int start_y, int end_x, int end_y, int color);
 #endif
