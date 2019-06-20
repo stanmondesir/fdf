@@ -2,6 +2,7 @@
 # define FDF_H
 # define WIN_HEIGHT 1080
 # define WIN_WIDTH 1920
+# define SPACING 20
 # define WIN_NAME "fdf"
 # include "../libft/libft.h"
 # include "../minilibx_macos/mlx.h"
@@ -24,14 +25,16 @@ typedef struct Pixels {
 }Pixel;
 
 typedef struct Images{
-	void *ptr;
-	char *data;
+	void 	*ptr;
+	char 	*data;
+	int 	width;
+	int 	height;
 }Image;
 
 typedef struct s_fdf {
 	void	*mlx;
 	void	*win;
-	Image	img;
+	Image	*img;
 
 }t_fdf;
 
@@ -51,7 +54,10 @@ void print_map(t_map *map);
 void print_array(int *array, int size);
 //DEBUG FUNCTION !!
 
-Image	create_img(int width, int height, void *mlx_ptr);
+Image	*create_img(int width, int height, void *mlx_ptr);
 t_map	*read_map(char *fp);
-void 	draw_line(t_fdf fdf, int start_x, int start_y, int end_x, int end_y, int color);
+void 	draw_line(t_fdf fdf, Pixel start, Pixel end);
+void 	put_grid(t_fdf fdf, t_map *map, Image img);
+int 	get_height(t_map *map);
+Color get_color(int int_color);
 #endif
