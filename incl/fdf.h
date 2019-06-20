@@ -2,7 +2,7 @@
 # define FDF_H
 # define WIN_HEIGHT 1080
 # define WIN_WIDTH 1920
-# define SPACING 20
+# define SPACING 50
 # define WIN_NAME "fdf"
 # include "../libft/libft.h"
 # include "../minilibx_macos/mlx.h"
@@ -57,7 +57,7 @@ void print_array(int *array, int size);
 Image	*create_img(int width, int height, void *mlx_ptr);
 t_map	*read_map(char *fp);
 void 	draw_line(t_fdf fdf, Pixel start, Pixel end);
-void 	put_grid(t_fdf fdf, t_map *map, Image img);
+void 	put_grid(t_fdf fdf, t_map *map, Image *img);
 int 	get_height(t_map *map);
 Color get_color(int int_color);
 #endif

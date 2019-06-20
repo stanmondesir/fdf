@@ -4,7 +4,7 @@ void draw_line(t_fdf fdf, Pixel start, Pixel end)
 {
 	int x,y,dx,dy,dx1,dy1,px,py,xe,ye;
 	dx = end.x - start.x;
-	dy = end.y - start.x;
+	dy = end.y - start.y;
 	dx1 = abs(dx);
 	dy1 = abs(dy);
 	px = 2 * dy1 - dx1;
@@ -144,59 +144,77 @@ Pixel	get_pixel(t_map *map, int x, int y)
 
 	i = 0;
 	cpy = map;
-	point.x = x * SPACING;
-	point.y = y * SPACING;
-	iso(&point.x, &point.y, point.z);
+	point.x = (x * SPACING) + 600;
+	point.y = (y * SPACING) - 250 ;
+	//printf("Get pixel : x : %d y : %d\n",x, y);
+	//printf("After iso : x : %d y : %d\n",point.x, point.y);
 	while (i < y)
 	{
 		cpy = cpy->next;
 		i++;
 	}
-	point.z = cpy->row.content[x];
+	point.z = cpy->row.content[x] * 2;
+	iso(&point.x, &point.y, point.z);
 	point.color = get_color(16777215 - (point.z * pow(75, 3)));
+	//printf("cccccc : x : %d y : %d\n",point.x, point.y);
 	return (point);
 }
 
 //Without Rotate
-void put_grid(t_fdf fdf, t_map *map, Image img)
+void put_grid(t_fdf fdf, t_map *map, Image *img)
 {
 	int x;
 	int y = 0;
 	Pixel curr;
 	Pixel next;
 	Pixel bottom;
+	t_map *head;
 
-	if (img.ptr != NULL)
-		printf("");
+	head = map;
+	if (img->ptr != NULL)
 	while (map != NULL)
 	{
-		printf("x : %d y : %d\n",x, y);
 		x = 0;
 		while (x < map->row.len)
 		{
-			curr = get_pixel(map, x, y);
-			next = get_pixel(map, x + 1, y);
-			bottom = get_pixel(map, x, y + 1) ;
-			//If we are at the end of the row
-			if (x == map->row.len - 1 && map->next != NULL)
+
+			curr = get_pixel(head, x, y);
+			next = get_pixel(head, x + 1, y);
+			if (map->next != NULL)
+				bottom = get_pixel(head, x, y + 1);
+
+			//If we are on the last row
+			if (map->next == NULL)
 			{
+				//printf("%d | %d\n", x, map->row.len);
+				printf("Start (Current) : (%d, %d)\n", curr.x, curr.y);
+				printf("End (Next) : (%d, %d)\n", next.x, next.y);
+				printf("x : %d\n", x);
+				if (x != map->row.len - 1)
+				{
+					printf("yes\n");
+					draw_line(fdf, curr, next);
+				}
+				//Only join with right point, don't do it for the last one
+			}
+
+			//If we are at the end of the row
+			else if (x == map->row.len - 1)
+			{
+				printf("Start (Current) : (%d, %d)\n", curr.x, curr.y);
+				printf("End (Bottom) : (%d, %d)\n", bottom.x, bottom.y);
 				draw_line(fdf, curr, bottom);
 				//Only join with the bottom point
 			}
-			//If we are on the last row
-			else if (map->next == NULL)
-			{
-				if (x == map->row.len - 1)
-					return ;
-				draw_line(fdf, curr, next);
-				//Only join with right point, don't do it for the last one
-			}
+
 			else
 			{
-				printf("Start : (%d, %d)\n", curr.x, curr.y);
-				printf("End : (%d, %d)\n", next.x, next.y);
+				printf("Start (Current) : (%d, %d)\n", curr.x, curr.y);
+				printf("End (Next) : (%d, %d)\n", next.x, next.y);
 				//Connect current point with the next point
 				draw_line(fdf, curr, next);
+				printf("Start (Current) : (%d, %d)\n", curr.x, curr.y);
+				printf("End (Bottom) : (%d, %d)\n", bottom.x, bottom.y);
 				//Connect current point with the bottom point
 				draw_line(fdf, curr, bottom);
 				//draw_line(fdf, off_x + (i*space), off_y + (j*space), off_x + ((i+1)*space), off_y + (j*space));
