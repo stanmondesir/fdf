@@ -1,5 +1,11 @@
 #include "../incl/fdf.h"
+/*
+TO DO :
+- Center the map
+- Relative spacing
+- Move with arrow keys ? 
 
+*/
 void draw_line(t_fdf fdf, Pixel start, Pixel end)
 {
 	int x,y,dx,dy,dx1,dy1,px,py,xe,ye;
@@ -125,6 +131,7 @@ void put_grid(t_fdf fdf, t_map *map)
 }
 */
 
+/*
 static void iso(int *x, int *y, int z)
 {
     int previous_x;
@@ -135,7 +142,7 @@ static void iso(int *x, int *y, int z)
     *x = (previous_x - previous_y) * cos(0.523599);
     *y = -z + (previous_x + previous_y) * sin(0.523599);
 }
-
+*/
 Pixel	get_pixel(t_map *map, int x, int y)
 {
 	Pixel point;
@@ -144,8 +151,8 @@ Pixel	get_pixel(t_map *map, int x, int y)
 
 	i = 0;
 	cpy = map;
-	point.x = (x * SPACING) + 600;
-	point.y = (y * SPACING) - 250 ;
+	point.x = (x * SPACING);
+	point.y = (y * SPACING);
 	//printf("Get pixel : x : %d y : %d\n",x, y);
 	//printf("After iso : x : %d y : %d\n",point.x, point.y);
 	while (i < y)
@@ -154,7 +161,7 @@ Pixel	get_pixel(t_map *map, int x, int y)
 		i++;
 	}
 	point.z = cpy->row.content[x] * 2;
-	iso(&point.x, &point.y, point.z);
+	//iso(&point.x, &point.y, point.z);
 	point.color = get_color(16777215 - (point.z * pow(75, 3)));
 	//printf("cccccc : x : %d y : %d\n",point.x, point.y);
 	return (point);
@@ -177,49 +184,28 @@ void put_grid(t_fdf fdf, t_map *map, Image *img)
 		x = 0;
 		while (x < map->row.len)
 		{
-
 			curr = get_pixel(head, x, y);
 			next = get_pixel(head, x + 1, y);
 			if (map->next != NULL)
 				bottom = get_pixel(head, x, y + 1);
-
 			//If we are on the last row
 			if (map->next == NULL)
 			{
-				//printf("%d | %d\n", x, map->row.len);
-				printf("Start (Current) : (%d, %d)\n", curr.x, curr.y);
-				printf("End (Next) : (%d, %d)\n", next.x, next.y);
-				printf("x : %d\n", x);
 				if (x != map->row.len - 1)
-				{
-					printf("yes\n");
 					draw_line(fdf, curr, next);
-				}
 				//Only join with right point, don't do it for the last one
 			}
-
 			//If we are at the end of the row
 			else if (x == map->row.len - 1)
-			{
-				printf("Start (Current) : (%d, %d)\n", curr.x, curr.y);
-				printf("End (Bottom) : (%d, %d)\n", bottom.x, bottom.y);
 				draw_line(fdf, curr, bottom);
 				//Only join with the bottom point
-			}
-
 			else
 			{
-				printf("Start (Current) : (%d, %d)\n", curr.x, curr.y);
-				printf("End (Next) : (%d, %d)\n", next.x, next.y);
 				//Connect current point with the next point
 				draw_line(fdf, curr, next);
-				printf("Start (Current) : (%d, %d)\n", curr.x, curr.y);
-				printf("End (Bottom) : (%d, %d)\n", bottom.x, bottom.y);
 				//Connect current point with the bottom point
 				draw_line(fdf, curr, bottom);
-				//draw_line(fdf, off_x + (i*space), off_y + (j*space), off_x + ((i+1)*space), off_y + (j*space));
 			}
-			//mlx_pixel_put(fdf.mlx, fdf.win, off_x + (i*space), off_y + (j*space) - (map->row.content[i] * 3), 16777215 - map->row.content[i] * 50);
 			x++;
 		}
 		y++;

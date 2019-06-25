@@ -2,7 +2,7 @@
 # define FDF_H
 # define WIN_HEIGHT 1080
 # define WIN_WIDTH 1920
-# define SPACING 50
+# define SPACING 7
 # define WIN_NAME "fdf"
 # include "../libft/libft.h"
 # include "../minilibx_macos/mlx.h"
