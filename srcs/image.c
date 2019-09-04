@@ -16,15 +16,19 @@ Image	*create_img(int width, int height, void *mlx_ptr)
 	return (img);
 }
 
-/*
-void img_put_pixel(Image *img, Pixel pixel)
+void img_put_pixel(Image *img, int x, int y, int color)
 {
 
 	int 	start_pos;
+	Color 	rgb_color;
 
+	rgb_color = get_color(color);
 	start_pos = (4 * x) + (4 * img->width * y);
-	img->data[start_pos] = color.r;
-	img->data[start_pos + 1] = color.g;
-	img->data[start_pos + 2] = color.b;
+	//printf("%d : (%d, %d, %d)\n", start_pos,rgb_color.r, rgb_color.g, rgb_color.b);
+	img->data[start_pos] = rgb_color.b;
+	//printf("R done\n");
+	img->data[start_pos + 1] = rgb_color.g;
+	//printf("G done\n");
+	img->data[start_pos + 2] = rgb_color.r;
+	//printf("B done\n");
 }
-*/

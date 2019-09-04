@@ -55,9 +55,10 @@ void print_array(int *array, int size);
 //DEBUG FUNCTION !!
 
 Image	*create_img(int width, int height, void *mlx_ptr);
+void 	img_put_pixel(Image *img, int x, int y, int color);
 t_map	*read_map(char *fp);
 void 	draw_line(t_fdf fdf, Pixel start, Pixel end);
-void 	put_grid(t_fdf fdf, t_map *map, Image *img);
+void 	put_grid(t_fdf fdf, t_map *map);
 int 	get_height(t_map *map);
 Color get_color(int int_color);
 #endif
