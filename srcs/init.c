@@ -11,7 +11,6 @@ t_fdf	*init_fdf(char *map_path)
     fdf->mlx = mlx_init();
 	fdf->win_width = 1920;
 	fdf->win_height = 1080;
-	fdf->angle = 30;
 	fdf->spacing = 20;
 	off_point = get_pixel(fdf, 0, get_height(fdf->map) - 1);
 	fdf->x_offset += abs(off_point.x);
