@@ -13,7 +13,8 @@ int give_up(void)
 	return (0);
 }
 
-int key_hooks(int Key, void *param)
+
+int key_press(int Key, void *param)
 {
 	t_fdf *fdf;
 
@@ -28,6 +29,25 @@ int key_hooks(int Key, void *param)
 		fdf->x_offset -= 10;
 	else if (Key == RIGHT_ARROW)
 		fdf->x_offset += 10;
+	reload(fdf);
+	return (0);
+}
+
+int mouse_press(int button, int x, int y, void *param)
+{
+	int test;
+	t_fdf *fdf;
+
+	fdf = param;
+	test = x;
+	test = y;
+	if (button == 4)
+		fdf->spacing += 1;
+	else if (button == 5)
+	{
+		if (fdf->spacing > 0)
+			fdf->spacing -= 1;
+	}
 	reload(fdf);
 	return (0);
 }
@@ -49,7 +69,8 @@ int main(int argc, char **argv)
 	printf("Rendering fdf\n");
 	put_grid(fdf);
 	mlx_hook(fdf->win, 17, 0, give_up, 0);
-    mlx_key_hook(fdf->win, key_hooks, fdf);
+	mlx_hook(fdf->win, 4, 0, mouse_press, fdf);
+    mlx_key_hook(fdf->win, key_press, fdf);
     mlx_loop(fdf->mlx);
     return (0);
 }

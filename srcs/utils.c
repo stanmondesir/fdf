@@ -25,3 +25,11 @@ Color get_color(int int_color)
 
 	return (color);
 }
+
+float	get_rad(int deg)
+{
+	float rad;
+
+	rad = deg * M_PI / 180;
+	return (rad);
+}

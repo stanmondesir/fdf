@@ -54,8 +54,8 @@ static void iso(int *x, int *y, int z)
 
 	previous_x = *x;
 	previous_y = *y;
-	*x = (previous_x - previous_y) * cos(0.523599);
-	*y = -z + (previous_x + previous_y) * sin(0.523599);
+	*x = (previous_x - previous_y) * cos(get_rad(30));
+	*y = -z + (previous_x + previous_y) * sin(get_rad(30));
 }
 
 Pixel	get_pixel(t_fdf *fdf, int x, int y)
@@ -90,13 +90,10 @@ void put_grid(t_fdf *fdf)
 	Pixel bottom;
 	t_map *cpy;
 
-	printf("PRINTING MAP\n");
 	cpy = fdf->map;
 	y = 0;
-	printf("Row_len : %d\n", cpy->row.len);
 	while (cpy != NULL)
 	{
-		printf("Loop start\n");
 		x = 0;
 		while (x < cpy->row.len)
 		{
@@ -120,7 +117,5 @@ void put_grid(t_fdf *fdf)
 		}
 		y++;
 		cpy = cpy->next;
-		printf("Y Value : %d\nLoop end\n", y);
 	}
-	printf("END\n");
 }

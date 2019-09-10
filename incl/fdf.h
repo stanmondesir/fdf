@@ -69,4 +69,5 @@ void 	draw_line(t_fdf *fdf, Pixel start, Pixel end);
 void 	put_grid(t_fdf *fdf);
 int 	get_height(t_map *map);
 Color get_color(int int_color);
+float	get_rad(int deg);
 #endif
