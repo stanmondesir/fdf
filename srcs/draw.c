@@ -83,39 +83,37 @@ Pixel	get_pixel(t_fdf *fdf, int x, int y)
 
 void put_grid(t_fdf *fdf)
 {
-	int x;
-	int y;
 	Pixel curr;
 	Pixel next;
 	Pixel bottom;
 	t_map *cpy;
 
 	cpy = fdf->map;
-	y = 0;
+	fdf->y = 0;
 	while (cpy != NULL)
 	{
-		x = 0;
-		while (x < cpy->row.len)
+		fdf->x = 0;
+		while (fdf->x < cpy->row.len)
 		{
-			curr = get_pixel(fdf, x, y);
-			next = get_pixel(fdf, x + 1, y);
+			curr = get_pixel(fdf, fdf->x, fdf->y);
+			next = get_pixel(fdf, fdf->x + 1, fdf->y);
 			if (cpy->next != NULL)
-				bottom = get_pixel(fdf, x, y + 1);
+				bottom = get_pixel(fdf, fdf->x, fdf->y + 1);
 			if (cpy->next == NULL)
 			{
-				if (x != cpy->row.len - 1)
+				if (fdf->x != cpy->row.len - 1)
 					draw_line(fdf, curr, next);
 			}
-			else if (x == cpy->row.len - 1)
+			else if (fdf->x == cpy->row.len - 1)
 				draw_line(fdf, curr, bottom);
 			else
 			{
 				draw_line(fdf, curr, next);
 				draw_line(fdf, curr, bottom);
 			}
-			x++;
+			fdf->x++;
 		}
-		y++;
+		fdf->y++;
 		cpy = cpy->next;
 	}
 }

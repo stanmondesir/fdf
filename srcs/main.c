@@ -14,21 +14,21 @@ int give_up(void)
 }
 
 
-int key_press(int Key, void *param)
+int key_hold(int Key, void *param)
 {
 	t_fdf *fdf;
 
 	fdf = param;
 	if (Key == 53)
 		give_up();
-	else if (Key == UP_ARROW)
-		fdf->y_offset -= 10;
-	else if (Key == DOWN_ARROW)
+	if (Key == UP_ARROW)
 		fdf->y_offset += 10;
-	else if (Key == LEFT_ARROW)
-		fdf->x_offset -= 10;
-	else if (Key == RIGHT_ARROW)
+	if (Key == DOWN_ARROW)
+		fdf->y_offset -= 10;
+	if (Key == LEFT_ARROW)
 		fdf->x_offset += 10;
+	if (Key == RIGHT_ARROW)
+		fdf->x_offset -= 10;
 	reload(fdf);
 	return (0);
 }
@@ -70,7 +70,7 @@ int main(int argc, char **argv)
 	put_grid(fdf);
 	mlx_hook(fdf->win, 17, 0, give_up, 0);
 	mlx_hook(fdf->win, 4, 0, mouse_press, fdf);
-    mlx_key_hook(fdf->win, key_press, fdf);
+	mlx_hook(fdf->win, 2, 0, key_hold, fdf);
     mlx_loop(fdf->mlx);
     return (0);
 }

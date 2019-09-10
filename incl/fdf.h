@@ -50,6 +50,8 @@ typedef struct s_fdf {
 	Image	*img;
 	t_map 	*map;
 	int		spacing;
+	int		x;
+	int		y;
 	int		x_offset;
 	int		y_offset;
 }t_fdf;
