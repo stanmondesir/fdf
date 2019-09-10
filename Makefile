@@ -13,6 +13,7 @@ SRC = main.c \
 	read.c \
 	draw.c \
 	utils.c \
+	init.c \
 	debug.c
 
 FILES = $(addprefix $(SRC_DIR),$(SRC))

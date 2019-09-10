@@ -28,7 +28,6 @@ t_map            *push_back_list(t_map *li, t_row *data)
 
     if (!(element = malloc(sizeof(*element))))
         return (NULL);
-
     element->row = *data;
     element->next = NULL;
     if (li == NULL)
@@ -49,7 +48,7 @@ t_map	*read_map(char *fp)
 	map = NULL;
 	if ((fd = open(fp, O_RDONLY)) == -1)
 	{
-		ft_putendl("nique");
+		ft_putendl("error");
 		exit(0);
 	}
 	while (get_next_line(fd, &line) > 0)
