@@ -22,13 +22,13 @@ int key_hold(int Key, void *param)
 	if (Key == 53)
 		give_up();
 	if (Key == UP_ARROW)
-		fdf->y_offset += 10;
-	if (Key == DOWN_ARROW)
 		fdf->y_offset -= 10;
+	if (Key == DOWN_ARROW)
+		fdf->y_offset += 10;
 	if (Key == LEFT_ARROW)
-		fdf->x_offset += 10;
-	if (Key == RIGHT_ARROW)
 		fdf->x_offset -= 10;
+	if (Key == RIGHT_ARROW)
+		fdf->x_offset += 10;
 	reload(fdf);
 	return (0);
 }
@@ -45,7 +45,7 @@ int mouse_press(int button, int x, int y, void *param)
 		fdf->spacing += 1;
 	else if (button == 5)
 	{
-		if (fdf->spacing > 0)
+		if (fdf->spacing > 10)
 			fdf->spacing -= 1;
 	}
 	reload(fdf);
