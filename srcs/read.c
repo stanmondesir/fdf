@@ -6,13 +6,14 @@ static t_row	*get_row(char *str)
 	int 	i;
 	t_row 	*row;
 
-	row = malloc(sizeof(row));
+
+	row = (t_row *)ft_memalloc(sizeof(t_row));
 	i = 0;
 	row->len = 0;
 	split = ft_strsplit(str, ' ');
-	while (split[row->len] != NULL)
+	while (split[row->len] != 0)
 		row->len++;
-	row->content = (int *)malloc(sizeof(int) * row->len);
+	row->content = (int *)malloc(sizeof(int) * (row->len));
 	while (split[i] != NULL)
 	{
 		row->content[i] = ft_atoi(split[i]);
@@ -21,14 +22,14 @@ static t_row	*get_row(char *str)
 	return (row);
 }
 
-t_map            *push_back_list(t_map *li, t_row *data)
+t_row		*push_back_list(t_row *li, t_row *data)
 {
-    t_map *element;
-    t_map *temp;
+    t_row *element;
+    t_row *temp;
 
-    if (!(element = malloc(sizeof(*element))))
+    if (!(element = (t_row *)malloc(sizeof(t_row))))
         return (NULL);
-    element->row = *data;
+    element = data;
     element->next = NULL;
     if (li == NULL)
         return (element);
@@ -43,9 +44,12 @@ t_map	*read_map(char *fp)
 {
 	char 	*line;
 	t_map 	*map;
+	t_row 	*row;
 	int		fd;
 
-	map = NULL;
+	map = (t_map *)malloc(sizeof(t_map));
+	map->height = 0;
+	row = NULL;
 	if ((fd = open(fp, O_RDONLY)) == -1)
 	{
 		ft_putendl("error");
@@ -53,8 +57,10 @@ t_map	*read_map(char *fp)
 	}
 	while (get_next_line(fd, &line) > 0)
 	{
-		map = push_back_list(map, get_row(line));
+		row = push_back_list(row, get_row(line));
 		ft_strdel(&line);
+		map->height++;
 	}
+	map->row = row;
 	return (map);
 }

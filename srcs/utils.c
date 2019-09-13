@@ -1,18 +1,22 @@
 #include "../incl/fdf.h"
 
-int 	get_height(t_map *map)
+int		get_offset(t_fdf *fdf, t_map *map)
 {
-	int height;
-	t_map *cpy;
+	t_row *cpy;
+	int 	y;
+	Pixel off_point;
 
-	cpy = map;
-	height = 0;
+	cpy = map->row;
+	y = 0;
 	while (cpy != NULL)
 	{
-		height++;
+		y++;
+		if (cpy->next == NULL)
+			break;
 		cpy = cpy->next;
 	}
-	return (height);
+	off_point = get_pixel(fdf, cpy, 0, y);
+	return(off_point.x);
 }
 
 Color get_color(int int_color)

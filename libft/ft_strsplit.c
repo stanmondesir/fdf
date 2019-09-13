@@ -67,7 +67,7 @@ static char	**split(char const *s, char c)
 
 	i = 0;
 	j = 0;
-	if (!(words = (char **)malloc(sizeof(char *) * count_words(s, c) + 1)))
+	if (!(words = (char **)malloc(sizeof(char *) * (count_words(s, c) + 1))))
 		return (NULL);
 	while (s[i] != '\0')
 	{

@@ -58,22 +58,15 @@ static void iso(int *x, int *y, int z)
 	*y = -z + (previous_x + previous_y) * sin(get_rad(30));
 }
 
-Pixel	get_pixel(t_fdf *fdf, int x, int y)
+Pixel	get_pixel(t_fdf *fdf, t_row *row,int x, int y)
 {
 	Pixel point;
 	int i;
-	t_map *cpy;
 
 	i = 0;
-	cpy = fdf->map;
 	point.x = (x * fdf->spacing);
 	point.y = (y * fdf->spacing);
-	while (i < y)
-	{
-		cpy = cpy->next;
-		i++;
-	}
-	point.z = cpy->row.content[x] * 5;
+	point.z = row->content[x] * 5;
 	iso(&point.x, &point.y, point.z);
 	point.color = get_color(16777215 - (point.z * pow(75, 3)));
 	point.x += fdf->x_offset;
@@ -86,25 +79,26 @@ void put_grid(t_fdf *fdf)
 	Pixel curr;
 	Pixel next;
 	Pixel bottom;
-	t_map *cpy;
+	t_row *cpy;
 
-	cpy = fdf->map;
+	cpy = fdf->map->row;
 	fdf->y = 0;
 	while (cpy != NULL)
 	{
 		fdf->x = 0;
-		while (fdf->x < cpy->row.len)
+		while (fdf->x < cpy->len)
 		{
-			curr = get_pixel(fdf, fdf->x, fdf->y);
-			next = get_pixel(fdf, fdf->x + 1, fdf->y);
+			curr = get_pixel(fdf, cpy, fdf->x, fdf->y);
+			if (fdf->x + 1< cpy->len)
+				next = get_pixel(fdf, cpy, fdf->x + 1, fdf->y);
 			if (cpy->next != NULL)
-				bottom = get_pixel(fdf, fdf->x, fdf->y + 1);
+				bottom = get_pixel(fdf, cpy->next, fdf->x, fdf->y + 1);
 			if (cpy->next == NULL)
 			{
-				if (fdf->x != cpy->row.len - 1)
+				if (fdf->x != cpy->len - 1)
 					draw_line(fdf, curr, next);
 			}
-			else if (fdf->x == cpy->row.len - 1)
+			else if (fdf->x == cpy->len - 1)
 				draw_line(fdf, curr, bottom);
 			else
 			{

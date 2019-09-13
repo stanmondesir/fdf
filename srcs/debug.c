@@ -16,14 +16,14 @@ void print_array(int *array, int size)
 	ft_putendl("]");
 }
 
-void print_map(t_map *map)
+void print_map(t_row *row)
 {
-	t_map *cpy;
+	t_row *cpy;
 
-	cpy = map;
+	cpy = row;
 	while (cpy != NULL)
 	{
-		print_array(cpy->row.content, cpy->row.len);
+		print_array(cpy->content, cpy->len);
 		cpy = cpy->next;
 	}
 }

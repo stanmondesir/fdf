@@ -62,12 +62,13 @@ int main(int argc, char **argv)
         return (0);
     }
 	fdf = init_fdf(argv[1]);
-	printf("PRINT FDF : win_height : %d\n", fdf->win_height);
+	printf("PRINT FDF : map_height : %d\n", fdf->map->height);
 	mlx_string_put(fdf->mlx, fdf->win, 0, 0, 6345184, "TEST");
 	//mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.ptr, 0, 0);
 	//draw_line(fdf, test1, test2);``
 	printf("Rendering fdf\n");
 	put_grid(fdf);
+	printf("%s\n", "FDF Rendered");
 	mlx_hook(fdf->win, 17, 0, give_up, 0);
 	mlx_hook(fdf->win, 4, 0, mouse_press, fdf);
 	mlx_hook(fdf->win, 2, 0, key_hold, fdf);

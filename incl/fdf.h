@@ -34,11 +34,12 @@ typedef struct Images{
 typedef struct s_row {
 	int	*content;
 	int	len;
+	struct s_row	*next;
 }t_row;
 
 typedef struct s_map {
-	t_row 			row;
-	struct s_map	*next;
+	t_row 			*row;
+	int				height;
 }t_map;
 
 typedef struct s_fdf {
@@ -49,7 +50,9 @@ typedef struct s_fdf {
 	char 	*win_name;
 	Image	*img;
 	t_map 	*map;
+	int 	map_height;
 	int		spacing;
+	int		amplify;
 	int		x;
 	int		y;
 	int		x_offset;
@@ -58,7 +61,7 @@ typedef struct s_fdf {
 
 //DEBUG FUNCTION !!
 //REMOVE AT END OF PROJECT !!!!!!!
-void print_map(t_map *map);
+void print_map(t_row *map);
 void print_array(int *array, int size);
 //DEBUG FUNCTION !!
 
@@ -66,10 +69,10 @@ t_fdf	*init_fdf(char *map_path);
 Image	*create_img(int width, int height, void *mlx_ptr);
 void 	img_put_pixel(Image *img, int x, int y, int color);
 t_map	*read_map(char *fp);
-Pixel	get_pixel(t_fdf *fdf, int x, int y);
+int		get_offset(t_fdf *fdf, t_map *map);
+Pixel	get_pixel(t_fdf *fdf, t_row *row,int x, int y);
 void 	draw_line(t_fdf *fdf, Pixel start, Pixel end);
 void 	put_grid(t_fdf *fdf);
-int 	get_height(t_map *map);
 Color get_color(int int_color);
 float	get_rad(int deg);
 #endif
