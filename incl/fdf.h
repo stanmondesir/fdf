@@ -48,6 +48,7 @@ typedef struct s_fdf {
 	int		win_width;
 	int 	win_height;
 	char 	*win_name;
+	int		mode;
 	Image	*img;
 	t_map 	*map;
 	int 	map_height;

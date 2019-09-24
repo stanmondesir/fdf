@@ -14,6 +14,19 @@ int give_up(void)
 }
 
 
+int key_press(int Key, void *param)
+{
+	t_fdf *fdf;
+
+	fdf = param;
+	if (Key == 83)
+		fdf->mode = 0;
+	else if (Key == 84)
+		fdf->mode = 1;
+	reload(fdf);
+	return (0);
+}
+
 int key_hold(int Key, void *param)
 {
 	t_fdf *fdf;
@@ -72,6 +85,7 @@ int main(int argc, char **argv)
 	mlx_hook(fdf->win, 17, 0, give_up, 0);
 	mlx_hook(fdf->win, 4, 0, mouse_press, fdf);
 	mlx_hook(fdf->win, 2, 0, key_hold, fdf);
+	mlx_key_hook(fdf->win, key_press, fdf);
     mlx_loop(fdf->mlx);
     return (0);
 }

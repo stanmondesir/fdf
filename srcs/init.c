@@ -9,8 +9,9 @@ t_fdf	*init_fdf(char *map_path)
     fdf->mlx = mlx_init();
 	fdf->win_width = 1920;
 	fdf->win_height = 1080;
-	fdf->spacing = 20;
-	fdf->amplify = 5;
+	fdf->spacing = 5;
+	fdf->amplify = 10;
+	fdf->mode = 0;
 	fdf->x = 0;
 	fdf->y = 0;
 	fdf->x_offset += abs(get_offset(fdf, fdf->map));

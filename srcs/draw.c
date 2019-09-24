@@ -58,6 +58,19 @@ static void iso(int *x, int *y, int z)
 	*y = -z + (previous_x + previous_y) * sin(get_rad(30));
 }
 
+static void parallel(int *x, int *y, int z)
+{
+	int previous_x;
+	int previous_y;
+	float cte;
+
+	cte = 0.9;
+	previous_x = *x;
+	previous_y = *y;
+	*x = previous_x + cte * z;
+	*y = previous_y - (cte/2) * z;
+}
+
 Pixel	get_pixel(t_fdf *fdf, t_row *row,int x, int y)
 {
 	Pixel point;
@@ -66,8 +79,11 @@ Pixel	get_pixel(t_fdf *fdf, t_row *row,int x, int y)
 	i = 0;
 	point.x = (x * fdf->spacing);
 	point.y = (y * fdf->spacing);
-	point.z = row->content[x] * 5;
-	iso(&point.x, &point.y, point.z);
+	point.z = row->content[x] * fdf->amplify;
+	if (fdf-> mode == 0)
+		iso(&point.x, &point.y, point.z);
+	else if (fdf -> mode == 1)
+		parallel(&point.x, &point.y, point.z);
 	point.color = get_color(16777215 - (point.z * pow(75, 3)));
 	point.x += fdf->x_offset;
 	point.y += fdf->y_offset;
