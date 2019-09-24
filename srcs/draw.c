@@ -68,7 +68,7 @@ static void parallel(int *x, int *y, int z)
 	previous_x = *x;
 	previous_y = *y;
 	*x = previous_x + cte * z;
-	*y = previous_y - (cte/2) * z;
+	*y = previous_y + (cte/2) * z;
 }
 
 Pixel	get_pixel(t_fdf *fdf, t_row *row,int x, int y)

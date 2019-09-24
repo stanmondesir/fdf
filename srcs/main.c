@@ -21,7 +21,7 @@ int key_press(int Key, void *param)
 	fdf = param;
 	if (Key == 83)
 		fdf->mode = 0;
-	else if (Key == 84)
+	if (Key == 84)
 		fdf->mode = 1;
 	reload(fdf);
 	return (0);
@@ -42,6 +42,10 @@ int key_hold(int Key, void *param)
 		fdf->x_offset -= 10;
 	if (Key == RIGHT_ARROW)
 		fdf->x_offset += 10;
+	if (Key == 69)
+		fdf->amplify += 1;
+	if (Key == 78)
+		fdf->amplify -= 1;
 	reload(fdf);
 	return (0);
 }
