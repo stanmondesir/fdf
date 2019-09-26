@@ -9,11 +9,11 @@ LIBFT_DIR = libft/
 
 SRC_DIR = ./srcs/
 SRC = main.c \
-	image.c \
 	read.c \
 	draw.c \
 	utils.c \
 	init.c \
+	gradient.c \
 	debug.c
 
 FILES = $(addprefix $(SRC_DIR),$(SRC))
