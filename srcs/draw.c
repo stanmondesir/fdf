@@ -22,27 +22,30 @@ void draw_line(t_fdf *fdf, Pixel start, Pixel end)
 {
 	Pixel delta;
 	Pixel slope;
+	Pixel current;
 	int err;
 	int e2;
 
 	delta = get_delta(start, end);
 	slope = get_slope(start, end);
+	current.x = start.x;
+	current.y = start.y;
 	err = (delta.x > delta.y ? delta.x : -delta.y) / 2;
 	while (1)
 	{
-		mlx_pixel_put(fdf->mlx, fdf->win, start.x, start.y, 6345184);
-		if (start.x == end.x && start.y == end.y)
+		mlx_pixel_put(fdf->mlx, fdf->win, current.x, current.y, get_color(current, start, end, delta));
+		if (current.x == end.x && current.y == end.y)
 		break;
 		e2 = err;
 		if (e2 > -delta.x)
 		{
 			err -= delta.y;
-			start.x += slope.x;
+			current.x += slope.x;
 		}
 		if (e2 < delta.y)
 		{
 			err += delta.x;
-			start.y += slope.y;
+			current.y += slope.y;
 		}
 	}
 }
@@ -74,6 +77,7 @@ static void parallel(int *x, int *y, int z)
 Pixel	get_pixel(t_fdf *fdf, t_row *row,int x, int y)
 {
 	Pixel point;
+	double percentage;
 	int i;
 
 	i = 0;
@@ -84,7 +88,18 @@ Pixel	get_pixel(t_fdf *fdf, t_row *row,int x, int y)
 		iso(&point.x, &point.y, point.z);
 	else if (fdf -> mode == 1)
 		parallel(&point.x, &point.y, point.z);
-	point.color = get_color(16777215 - (point.z * pow(75, 3)));
+	if (point.z != 0)
+	{
+		if (row->content[x] > 100)
+			percentage = 1.0;
+		else
+			percentage = (double)point.z/100.0;
+		if (row->content[x] < 0)
+			printf("percentage < 0 : %f\n", percentage);
+		point.color = get_int_color(255*(1.0-percentage), 0,0);
+	}
+	else
+		point.color = get_int_color(0, 255, 0);
 	point.x += fdf->x_offset;
 	point.y += fdf->y_offset;
 	return (point);

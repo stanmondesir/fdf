@@ -4,24 +4,18 @@
 # define RIGHT_ARROW 124
 # define DOWN_ARROW 125
 # define UP_ARROW 126
+# define BASE_COLOR 6618980
 # include "../libft/libft.h"
 # include "../minilibx_macos/mlx.h"
 # include <math.h>
 # include <fcntl.h>
 # include <stdio.h>
 
-typedef struct Colors {
-	int r;
-	int g;
-	int b;
-	int a;
-}Color;
-
 typedef struct Pixels {
     int x;
     int y;
     int z;
-	Color color;
+	int color;
 }Pixel;
 
 typedef struct Images{
@@ -74,6 +68,7 @@ int		get_offset(t_fdf *fdf, t_map *map);
 Pixel	get_pixel(t_fdf *fdf, t_row *row,int x, int y);
 void 	draw_line(t_fdf *fdf, Pixel start, Pixel end);
 void 	put_grid(t_fdf *fdf);
-Color get_color(int int_color);
 float	get_rad(int deg);
+int 	get_int_color(int red, int green, int blue);
+int 	get_color(Pixel current, Pixel start, Pixel end, Pixel delta);
 #endif

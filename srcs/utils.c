@@ -19,15 +19,9 @@ int		get_offset(t_fdf *fdf, t_map *map)
 	return(off_point.x);
 }
 
-Color get_color(int int_color)
+int 	get_int_color(int red, int green, int blue)
 {
-	Color 	color;
-
-	color.b =  int_color & 255;
-	color.g = (int_color >> 8) & 255;
-	color.r = (int_color >> 16) & 255;
-
-	return (color);
+	return((red&0x0ff)<<16)|((green&0x0ff)<<8)|(blue&0x0ff);
 }
 
 float	get_rad(int deg)
