@@ -57,7 +57,10 @@ typedef struct s_fdf {
 	int		y_offset;
 	int		cos;
     int		sin;
+	int		lol_y;
+	int		lol_x;
 	void	*bg;
+	void	*bg_1;
 	int 	vprwv;
 }t_fdf;
 
@@ -78,6 +81,10 @@ void 	put_grid(t_fdf *fdf);
 float	get_rad(int deg);
 int 	get_int_color(int red, int green, int blue);
 int 	get_color(Pixel current, Pixel start, Pixel end, Pixel delta);
+<<<<<<< HEAD
 void 	vprwv(t_fdf *fdf);
 void 	set_color(t_fdf *fdf, int *color, int z);
+=======
+// void	*ft_background(t_fdf *fdf);
+>>>>>>> 9d8d5d3faa4c60b39c05b0b31875dec416561ff1
 #endif

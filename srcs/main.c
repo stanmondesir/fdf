@@ -44,13 +44,25 @@ int key_hold(int key, void *param)
 	if (key == 53)
 		give_up();
 	if (key == UP_ARROW)
+	{
+		fdf->lol_y += 10;
 		fdf->y_offset -= 10;
+	}
 	if (key == DOWN_ARROW)
+	{
+		fdf->lol_y -= 10;
 		fdf->y_offset += 10;
+	}
 	if (key == LEFT_ARROW)
+	{
+		fdf->lol_x += 10;
 		fdf->x_offset -= 10;
+	}
 	if (key == RIGHT_ARROW)
+	{
+		fdf->lol_x -= 10;
 		fdf->x_offset += 10;
+	}
 	if (key == 14)
 		fdf->cos += 10;
 	if (key == 12)
@@ -86,6 +98,50 @@ int mouse_press(int button, int x, int y, void *param)
 	return (0);
 }
 
+<<<<<<< HEAD
+=======
+char *data_bg(t_fdf *fdf, char *image_data)
+{
+	int y;
+	int x;
+	int i;
+
+	y = 0;
+	while (y < fdf->win_height)
+	{
+		x = 0;
+		while (x < fdf->win_width)
+		{
+			i = (x * 4 + 4 * fdf->win_width * y);
+			image_data[i] = 101;
+			image_data[i + 1] = 30;
+			image_data[i + 2] = 73;
+			x++;
+		}
+		y++;
+	}
+	return (image_data);
+}
+
+void	ft_background(t_fdf *fdf)
+{
+	int bpp;
+	int size_line;
+	int endian;
+	int width;
+	int height;
+	char *image_data;
+	// char *image_data_1;
+
+	fdf->bg = mlx_new_image(fdf->mlx, fdf->win_width, fdf->win_height);
+	// fdf->bg_1 = mlx_new_image(fdf->mlx, fdf->win_width, fdf->win_height);
+	image_data = mlx_get_data_addr(fdf->bg, &bpp, &size_line, &endian);
+	// image_data_1 = mlx_get_data_addr(fdf->bg_1, &bpp, &size_line, &endian);
+	// image_data_1 = data_bg(fdf, image_data_1);
+	mlx_put_image_to_window(fdf->mlx, fdf->win , fdf->bg_1, 0, 0);
+	fdf->bg = mlx_xpm_file_to_image(fdf->mlx, "fdf_bg.xpm", &width, &height);
+}
+>>>>>>> 9d8d5d3faa4c60b39c05b0b31875dec416561ff1
 
 int main(int argc, char **argv)
 {
@@ -103,6 +159,12 @@ int main(int argc, char **argv)
 	//draw_line(fdf, test1, test2);``
 	//vprwv(fdf);
 	printf("Rendering fdf\n");
+<<<<<<< HEAD
+=======
+	system("afplay hello.mp3&");
+	ft_background(fdf);
+	mlx_put_image_to_window(fdf->mlx, fdf->win , fdf->bg, 50, 50);
+>>>>>>> 9d8d5d3faa4c60b39c05b0b31875dec416561ff1
 	put_grid(fdf);
 	printf("%s\n", "FDF Rendered");
 	mlx_hook(fdf->win, 17, 0, give_up, 0);
