@@ -1,6 +1,6 @@
 #include "../incl/fdf.h"
 
-static t_row	*get_row(char *str)
+static t_row	*get_row(char *str, int *max_height)
 {
 	char 	**split;
 	int 	i;
@@ -17,6 +17,8 @@ static t_row	*get_row(char *str)
 	while (split[i] != NULL)
 	{
 		row->content[i] = ft_atoi(split[i]);
+		if (row->content[i] > *max_height)
+			*max_height = row->content[i];
 		i++;
 	}
 	return (row);
@@ -49,6 +51,7 @@ t_map	*read_map(char *fp)
 
 	map = (t_map *)malloc(sizeof(t_map));
 	map->height = 0;
+	map->max_height = 0;
 	row = NULL;
 	if ((fd = open(fp, O_RDONLY)) == -1)
 	{
@@ -57,7 +60,7 @@ t_map	*read_map(char *fp)
 	}
 	while (get_next_line(fd, &line) > 0)
 	{
-		row = push_back_list(row, get_row(line));
+		row = push_back_list(row, get_row(line, &map->max_height));
 		ft_strdel(&line);
 		map->height++;
 	}
