@@ -4,7 +4,7 @@
 void reload(t_fdf *fdf)
 {
 	mlx_clear_window(fdf->mlx, fdf->win);
-	mlx_put_image_to_window(fdf->mlx, fdf->win , fdf->bg, 0, 0);
+	mlx_put_image_to_window(fdf->mlx, fdf->win , fdf->bg, fdf->lol_x, fdf->lol_y);
 
 	put_grid(fdf);
 }
@@ -39,13 +39,25 @@ int key_hold(int key, void *param)
 	if (key == 53)
 		give_up();
 	if (key == UP_ARROW)
+	{
+		fdf->lol_y += 10;
 		fdf->y_offset -= 10;
+	}
 	if (key == DOWN_ARROW)
+	{
+		fdf->lol_y -= 10;
 		fdf->y_offset += 10;
+	}
 	if (key == LEFT_ARROW)
+	{
+		fdf->lol_x += 10;
 		fdf->x_offset -= 10;
+	}
 	if (key == RIGHT_ARROW)
+	{
+		fdf->lol_x -= 10;
 		fdf->x_offset += 10;
+	}
 	if (key == 14)
 		fdf->cos += 10;
 	if (key == 12)
@@ -81,7 +93,7 @@ int mouse_press(int button, int x, int y, void *param)
 	return (0);
 }
 
-void	data_bg(t_fdf *fdf, char *image_data)
+char *data_bg(t_fdf *fdf, char *image_data)
 {
 	int y;
 	int x;
@@ -101,23 +113,26 @@ void	data_bg(t_fdf *fdf, char *image_data)
 		}
 		y++;
 	}
+	return (image_data);
 }
 
-void	*ft_background(t_fdf *fdf)
+void	ft_background(t_fdf *fdf)
 {
-	void *img;
 	int bpp;
 	int size_line;
 	int endian;
 	int width;
 	int height;
 	char *image_data;
+	// char *image_data_1;
 
-	img = mlx_new_image(fdf->mlx, fdf->win_width, fdf->win_height);
-	image_data = mlx_get_data_addr(img, &bpp, &size_line, &endian);
-	data_bg(fdf, image_data);
-	img = mlx_xpm_file_to_image(fdf->mlx, "fdf_bg.xpm", &width, &height);
-	return (img);
+	fdf->bg = mlx_new_image(fdf->mlx, fdf->win_width, fdf->win_height);
+	// fdf->bg_1 = mlx_new_image(fdf->mlx, fdf->win_width, fdf->win_height);
+	image_data = mlx_get_data_addr(fdf->bg, &bpp, &size_line, &endian);
+	// image_data_1 = mlx_get_data_addr(fdf->bg_1, &bpp, &size_line, &endian);
+	// image_data_1 = data_bg(fdf, image_data_1);
+	mlx_put_image_to_window(fdf->mlx, fdf->win , fdf->bg_1, 0, 0);
+	fdf->bg = mlx_xpm_file_to_image(fdf->mlx, "fdf_bg.xpm", &width, &height);
 }
 
 int main(int argc, char **argv)
@@ -136,7 +151,7 @@ int main(int argc, char **argv)
 	//draw_line(fdf, test1, test2);``
 	printf("Rendering fdf\n");
 	system("afplay hello.mp3&");
-	fdf->bg = ft_background(fdf);
+	ft_background(fdf);
 	mlx_put_image_to_window(fdf->mlx, fdf->win , fdf->bg, 50, 50);
 	put_grid(fdf);
 	printf("%s\n", "FDF Rendered");

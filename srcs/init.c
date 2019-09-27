@@ -20,5 +20,7 @@ t_fdf	*init_fdf(char *map_path)
 	fdf->y_offset = 0;
 	fdf->win_name = map_path;
     fdf->win = mlx_new_window(fdf->mlx, fdf->win_width, fdf->win_height, fdf->win_name);
+	fdf->lol_x = 250;
+	fdf->lol_y = 250;
 	return (fdf);
 }
