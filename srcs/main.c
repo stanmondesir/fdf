@@ -137,7 +137,7 @@ int main(int argc, char **argv)
 	printf("Rendering fdf\n");
 	system("afplay hello.mp3&");
 	fdf->bg = ft_background(fdf);
-	mlx_put_image_to_window(fdf->mlx, fdf->win , fdf->bg, 50, 50);
+	mlx_put_image_to_window(fdf->mlx, fdf->win , fdf->bg, 0, 0);
 	put_grid(fdf);
 	printf("%s\n", "FDF Rendered");
 	mlx_hook(fdf->win, 17, 0, give_up, 0);

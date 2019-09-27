@@ -1,6 +1,6 @@
 #include "../incl/fdf.h"
 
-static t_row	*get_row(char *str, int *max_height)
+static t_row	*get_row(char *str, int *min_height, int *max_height)
 {
 	char 	**split;
 	int 	i;
@@ -19,6 +19,8 @@ static t_row	*get_row(char *str, int *max_height)
 		row->content[i] = ft_atoi(split[i]);
 		if (row->content[i] > *max_height)
 			*max_height = row->content[i];
+		if (row->content[i] < *min_height)
+			*min_height = row->content[i];
 		i++;
 	}
 	return (row);
@@ -52,6 +54,7 @@ t_map	*read_map(char *fp)
 	map = (t_map *)malloc(sizeof(t_map));
 	map->height = 0;
 	map->max_height = 0;
+	map->min_height = 0;
 	row = NULL;
 	if ((fd = open(fp, O_RDONLY)) == -1)
 	{
@@ -60,10 +63,11 @@ t_map	*read_map(char *fp)
 	}
 	while (get_next_line(fd, &line) > 0)
 	{
-		row = push_back_list(row, get_row(line, &map->max_height));
+		row = push_back_list(row, get_row(line,&map->min_height, &map->max_height));
 		ft_strdel(&line);
 		map->height++;
 	}
+	printf("min_height : %d Max_height : %d\n", map->min_height, map->max_height);
 	map->row = row;
 	return (map);
 }
