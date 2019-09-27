@@ -35,7 +35,7 @@ void draw_line(t_fdf *fdf, Pixel start, Pixel end)
 	{
 		mlx_pixel_put(fdf->mlx, fdf->win, current.x, current.y, get_color(current, start, end, delta));
 		if (current.x == end.x && current.y == end.y)
-		break;
+			break;
 		e2 = err;
 		if (e2 > -delta.x)
 		{
@@ -50,15 +50,15 @@ void draw_line(t_fdf *fdf, Pixel start, Pixel end)
 	}
 }
 
-static void iso(int *x, int *y, int z)
+static void iso(int *x, int *y, int z, t_fdf *fdf)
 {
 	int previous_x;
 	int previous_y;
 
 	previous_x = *x;
 	previous_y = *y;
-	*x = (previous_x - previous_y) * cos(get_rad(30));
-	*y = -z + (previous_x + previous_y) * sin(get_rad(30));
+	*x = (previous_x - previous_y) * cos(get_rad(fdf->cos));
+	*y = -z + (previous_x + previous_y) * sin(get_rad(fdf->sin));
 }
 
 static void parallel(int *x, int *y, int z)
@@ -85,7 +85,7 @@ Pixel	get_pixel(t_fdf *fdf, t_row *row,int x, int y)
 	point.y = (y * fdf->spacing);
 	point.z = row->content[x] * fdf->amplify;
 	if (fdf-> mode == 0)
-		iso(&point.x, &point.y, point.z);
+		iso(&point.x, &point.y, point.z, fdf);
 	else if (fdf -> mode == 1)
 		parallel(&point.x, &point.y, point.z);
 	if (point.z != 0)
