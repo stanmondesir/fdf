@@ -45,6 +45,7 @@ typedef struct s_fdf {
 	int 	win_height;
 	char 	*win_name;
 	int		mode;
+	int		palette;
 	Image	*img;
 	t_map 	*map;
 	int 	map_height;
@@ -57,6 +58,7 @@ typedef struct s_fdf {
 	int		cos;
     int		sin;
 	void	*bg;
+	int 	vprwv;
 }t_fdf;
 
 //DEBUG FUNCTION !!
@@ -76,5 +78,6 @@ void 	put_grid(t_fdf *fdf);
 float	get_rad(int deg);
 int 	get_int_color(int red, int green, int blue);
 int 	get_color(Pixel current, Pixel start, Pixel end, Pixel delta);
-void	*ft_background(t_fdf *fdf);
+void 	vprwv(t_fdf *fdf);
+void 	set_color(t_fdf *fdf, int *color, int z);
 #endif

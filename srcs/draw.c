@@ -77,7 +77,6 @@ static void parallel(int *x, int *y, int z)
 Pixel	get_pixel(t_fdf *fdf, t_row *row,int x, int y)
 {
 	Pixel point;
-	double percentage;
 	int i;
 
 	i = 0;
@@ -88,11 +87,7 @@ Pixel	get_pixel(t_fdf *fdf, t_row *row,int x, int y)
 		iso(&point.x, &point.y, point.z, fdf);
 	else if (fdf -> mode == 1)
 		parallel(&point.x, &point.y, point.z);
-	if (row->content[x] >= 0)
-		percentage = (double)row->content[x]/(double)fdf->map->max_height;
-	else
-		percentage = (double)row->content[x]/(double)fdf->map->min_height;
-	point.color = get_int_color(255*(1.0-percentage),255*(percentage),255);
+	set_color(fdf, &point.color, row->content[x]);
 	point.x += fdf->x_offset;
 	point.y += fdf->y_offset;
 	return (point);
