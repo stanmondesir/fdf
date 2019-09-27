@@ -35,6 +35,7 @@ typedef struct s_map {
 	t_row 			*row;
 	int				height;
 	int 			max_height;
+	int 			min_height;
 }t_map;
 
 typedef struct s_fdf {

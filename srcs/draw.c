@@ -88,19 +88,11 @@ Pixel	get_pixel(t_fdf *fdf, t_row *row,int x, int y)
 		iso(&point.x, &point.y, point.z, fdf);
 	else if (fdf -> mode == 1)
 		parallel(&point.x, &point.y, point.z);
-	if (row->content[x] != 0)
-	{
-		if (row->content[x] > fdf->map->max_height || row->content[x] < -fdf->map->max_height)
-			percentage = 1.0;
-		else
-			percentage = (double)row->content[x]/(double)fdf->map->max_height;
-		if (row->content[x] < 0)
-			point.color = get_int_color(255*(1.0-percentage),255,255*(1.0-percentage));
-		else
-			point.color = get_int_color(255*(percentage), 255*(1.0-percentage),0);
-	}
+	if (row->content[x] >= 0)
+		percentage = (double)row->content[x]/(double)fdf->map->max_height;
 	else
-		point.color = get_int_color(0, 255, 0);
+		percentage = (double)row->content[x]/(double)fdf->map->min_height;
+	point.color = get_int_color(255*(1.0-percentage),255*(percentage),255);
 	point.x += fdf->x_offset;
 	point.y += fdf->y_offset;
 	return (point);
