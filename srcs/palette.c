@@ -7,9 +7,7 @@ void set_color(t_fdf *fdf, int *color, int z)
 		percentage = (double)z/(double)fdf->map->max_height;
 	else
 		percentage = (double)z/(double)fdf->map->min_height;
-	if (fdf->vprwv == 1)
-		*color = get_int_color(255*(1.0-percentage),255*(percentage),255);
-	else if (fdf->palette == 0)
+	if (fdf->palette == 0)
 	{
 		if (z == 0)
 			*color = get_int_color(0, 255, 0);
@@ -20,11 +18,6 @@ void set_color(t_fdf *fdf, int *color, int z)
 	}
 	else if (fdf->palette == 1)
 	{
-		if (z == 0)
-			*color = get_int_color(0, 255, 0);
-		else if (z < 0)
-			*color = get_int_color(0 ,255*(1.0-percentage),255);
-		else
-			*color = get_int_color(255* (percentage),255*(1.0-percentage),0);
+		*color = get_int_color(255*(1.0-percentage),255*(percentage),255);
 	}
 }

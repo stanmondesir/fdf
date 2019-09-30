@@ -9,7 +9,7 @@ t_fdf	*init_fdf(char *map_path)
     fdf->mlx = mlx_init();
 	fdf->win_width = 1920;
 	fdf->win_height = 1080;
-	fdf->spacing = 4;//(fdf->win_height)  / (fdf->map->height + 5);
+	fdf->spacing = (fdf->win_height)  / (fdf->map->height + 5);
 	fdf->amplify = 0;
 	fdf->cos = 30;
 	fdf->sin = 30;
