@@ -6,7 +6,7 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:39 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 17:03:46 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/01 17:14:16 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void		put_grid(t_fdf *fdf)
 	t_pixel curr;
 	t_pixel next;
 	t_pixel bottom;
-	t_row *cpy;
+	t_row	*cpy;
 
 	cpy = fdf->map->row;
 	fdf->y = 0;
