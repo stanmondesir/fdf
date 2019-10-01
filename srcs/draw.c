@@ -6,7 +6,7 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:39 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 17:14:16 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/01 17:36:48 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ void		draw_line(t_fdf *fdf, t_pixel start, t_pixel end)
 
 	delta = get_delta(start, end);
 	slope = get_slope(start, end);
-	current.x = start.x;
-	current.y = start.y;
+	current = start;
 	err = (delta.x > delta.y ? delta.x : -delta.y) / 2;
 	while (1)
 	{
@@ -125,11 +124,8 @@ void		put_grid(t_fdf *fdf)
 				next = get_pixel(fdf, cpy, fdf->x + 1, fdf->y);
 			if (cpy->next != NULL)
 				bottom = get_pixel(fdf, cpy->next, fdf->x, fdf->y + 1);
-			if (cpy->next == NULL)
-			{
-				if (fdf->x != cpy->len - 1)
-					draw_line(fdf, curr, next);
-			}
+			if (cpy->next == NULL && (fdf->x != cpy->len - 1))
+				draw_line(fdf, curr, next);
 			else if (fdf->x == cpy->len - 1)
 				draw_line(fdf, curr, bottom);
 			else
