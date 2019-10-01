@@ -6,13 +6,13 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:39 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 16:02:37 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/01 16:39:43 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
 
-Pixel	get_delta(Pixel start, Pixel end)
+Pixel		get_delta(Pixel start, Pixel end)
 {
 	Pixel delta;
 
@@ -21,7 +21,7 @@ Pixel	get_delta(Pixel start, Pixel end)
 	return (delta);
 }
 
-Pixel	get_slope(Pixel start, Pixel end)
+Pixel		get_slope(Pixel start, Pixel end)
 {
 	Pixel slope;
 
@@ -30,7 +30,7 @@ Pixel	get_slope(Pixel start, Pixel end)
 	return (slope);
 }
 
-void	draw_line(t_fdf *fdf, Pixel start, Pixel end)
+void		draw_line(t_fdf *fdf, Pixel start, Pixel end)
 {
 	Pixel	delta;
 	Pixel	slope;
@@ -106,7 +106,7 @@ Pixel		get_pixel(t_fdf *fdf, t_row *row, int x, int y)
 	return (point);
 }
 
-void	put_grid(t_fdf *fdf)
+void		put_grid(t_fdf *fdf)
 {
 	Pixel curr;
 	Pixel next;

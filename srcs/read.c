@@ -6,7 +6,7 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:07 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 16:31:38 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/01 16:38:30 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static t_row	*get_row(char *str, int *min_height, int *max_height)
 	return (row);
 }
 
-t_row		*push_back_list(t_row *li, t_row *data)
+t_row			*push_back_list(t_row *li, t_row *data)
 {
 	t_row	*element;
 	t_row	*temp;
@@ -55,7 +55,7 @@ t_row		*push_back_list(t_row *li, t_row *data)
 	return (li);
 }
 
-t_map	*read_map(char *fp)
+t_map			*read_map(char *fp)
 {
 	char	*line;
 	t_map	*map;
