@@ -6,7 +6,7 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:11 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 15:23:17 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/01 16:11:49 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int		get_offset(t_fdf *fdf, t_map *map)
 {
-	t_row *cpy;
-	int 	y;
-	Pixel off_point;
+	t_row	*cpy;
+	int		y;
+	Pixel	off_point;
 
 	cpy = map->row;
 	y = 0;
@@ -24,16 +24,16 @@ int		get_offset(t_fdf *fdf, t_map *map)
 	{
 		y++;
 		if (cpy->next == NULL)
-			break;
+			break ;
 		cpy = cpy->next;
 	}
 	off_point = get_pixel(fdf, cpy, 0, y);
-	return(off_point.x);
+	return (off_point.x);
 }
 
-int 	get_int_color(int red, int green, int blue)
+int		get_int_color(int red, int green, int blue)
 {
-	return((red&0x0ff)<<16)|((green&0x0ff)<<8)|(blue&0x0ff);
+	return ((red & 0x0ff) << 16) | ((green & 0x0ff) << 8) | (blue & 0x0ff);
 }
 
 float	get_rad(int deg)

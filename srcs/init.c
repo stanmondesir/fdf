@@ -6,7 +6,7 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:22 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 15:23:25 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/01 16:07:40 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ t_fdf	*init_fdf(char *map_path)
 
 	fdf = (t_fdf *)ft_memalloc(sizeof(t_fdf));
 	fdf->map = read_map(map_path);
-    fdf->mlx = mlx_init();
+	fdf->mlx = mlx_init();
 	fdf->win_width = 1920;
 	fdf->win_height = 1080;
-	fdf->spacing = (fdf->win_height)  / (fdf->map->height + 5);
+	fdf->spacing = (fdf->win_height) / (fdf->map->height + 5);
 	fdf->amplify = 0;
 	fdf->cos = 30;
 	fdf->sin = 30;
@@ -33,7 +33,8 @@ t_fdf	*init_fdf(char *map_path)
 	fdf->x_offset += abs(get_offset(fdf, fdf->map));
 	fdf->y_offset = 0;
 	fdf->win_name = map_path;
-    fdf->win = mlx_new_window(fdf->mlx, fdf->win_width, fdf->win_height, fdf->win_name);
+	fdf->win = mlx_new_window(fdf->mlx, fdf->win_width,
+			fdf->win_height, fdf->win_name);
 	fdf->lol_x = 250;
 	fdf->lol_y = 250;
 	return (fdf);

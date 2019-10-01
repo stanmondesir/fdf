@@ -6,13 +6,13 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:39 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 15:23:40 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/01 16:02:37 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
 
-Pixel get_delta(Pixel start, Pixel end)
+Pixel	get_delta(Pixel start, Pixel end)
 {
 	Pixel delta;
 
@@ -21,7 +21,7 @@ Pixel get_delta(Pixel start, Pixel end)
 	return (delta);
 }
 
-Pixel get_slope(Pixel start, Pixel end)
+Pixel	get_slope(Pixel start, Pixel end)
 {
 	Pixel slope;
 
@@ -30,13 +30,13 @@ Pixel get_slope(Pixel start, Pixel end)
 	return (slope);
 }
 
-void draw_line(t_fdf *fdf, Pixel start, Pixel end)
+void	draw_line(t_fdf *fdf, Pixel start, Pixel end)
 {
-	Pixel delta;
-	Pixel slope;
-	Pixel current;
-	int err;
-	int e2;
+	Pixel	delta;
+	Pixel	slope;
+	Pixel	current;
+	int		err;
+	int		e2;
 
 	delta = get_delta(start, end);
 	slope = get_slope(start, end);
@@ -45,9 +45,10 @@ void draw_line(t_fdf *fdf, Pixel start, Pixel end)
 	err = (delta.x > delta.y ? delta.x : -delta.y) / 2;
 	while (1)
 	{
-		mlx_pixel_put(fdf->mlx, fdf->win, current.x, current.y, get_color(current, start, end, delta));
+		mlx_pixel_put(fdf->mlx, fdf->win, current.x, current.y,
+						get_color(current, start, end, delta));
 		if (current.x == end.x && current.y == end.y)
-			break;
+			break ;
 		e2 = err;
 		if (e2 > -delta.x)
 		{
@@ -62,7 +63,7 @@ void draw_line(t_fdf *fdf, Pixel start, Pixel end)
 	}
 }
 
-static void iso(int *x, int *y, int z, t_fdf *fdf)
+static void	iso(int *x, int *y, int z, t_fdf *fdf)
 {
 	int previous_x;
 	int previous_y;
@@ -73,31 +74,31 @@ static void iso(int *x, int *y, int z, t_fdf *fdf)
 	*y = -z + (previous_x + previous_y) * sin(get_rad(fdf->sin));
 }
 
-static void parallel(int *x, int *y, int z)
+static void	parallel(int *x, int *y, int z)
 {
-	int previous_x;
-	int previous_y;
-	float cte;
+	int		previous_x;
+	int		previous_y;
+	float	cte;
 
 	cte = 0.9;
 	previous_x = *x;
 	previous_y = *y;
 	*x = previous_x + cte * z;
-	*y = previous_y + (cte/2) * z;
+	*y = previous_y + (cte / 2) * z;
 }
 
-Pixel	get_pixel(t_fdf *fdf, t_row *row,int x, int y)
+Pixel		get_pixel(t_fdf *fdf, t_row *row, int x, int y)
 {
-	Pixel point;
-	int i;
+	Pixel	point;
+	int		i;
 
 	i = 0;
 	point.x = (x * fdf->spacing);
 	point.y = (y * fdf->spacing);
 	point.z = row->content[x] * fdf->amplify;
-	if (fdf-> mode == 0)
+	if (fdf->mode == 0)
 		iso(&point.x, &point.y, point.z, fdf);
-	else if (fdf -> mode == 1)
+	else if (fdf->mode == 1)
 		parallel(&point.x, &point.y, point.z);
 	set_color(fdf, &point.color, row->content[x]);
 	point.x += fdf->x_offset;
@@ -105,7 +106,7 @@ Pixel	get_pixel(t_fdf *fdf, t_row *row,int x, int y)
 	return (point);
 }
 
-void put_grid(t_fdf *fdf)
+void	put_grid(t_fdf *fdf)
 {
 	Pixel curr;
 	Pixel next;
@@ -120,7 +121,7 @@ void put_grid(t_fdf *fdf)
 		while (fdf->x < cpy->len)
 		{
 			curr = get_pixel(fdf, cpy, fdf->x, fdf->y);
-			if (fdf->x + 1< cpy->len)
+			if (fdf->x + 1 < cpy->len)
 				next = get_pixel(fdf, cpy, fdf->x + 1, fdf->y);
 			if (cpy->next != NULL)
 				bottom = get_pixel(fdf, cpy->next, fdf->x, fdf->y + 1);

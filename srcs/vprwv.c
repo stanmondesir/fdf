@@ -6,18 +6,18 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:13 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 15:23:14 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/01 16:13:05 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
 
-Image	*ft_background(t_fdf *fdf, char* fp)
+Image	*ft_background(t_fdf *fdf, char *fp)
 {
-	Image *img;
-	int bpp;
-	int size_line;
-	int endian;
+	Image	*img;
+	int		bpp;
+	int		size_line;
+	int		endian;
 
 	img = (Image *)malloc(sizeof(Image));
 	img->ptr = mlx_xpm_file_to_image(fdf->mlx, fp, &img->width, &img->height);
@@ -26,7 +26,7 @@ Image	*ft_background(t_fdf *fdf, char* fp)
 	return (img);
 }
 
-void 	vprwv(t_fdf *fdf)
+void	vprwv(t_fdf *fdf)
 {
 	if (fdf->vprwv == 0)
 	{

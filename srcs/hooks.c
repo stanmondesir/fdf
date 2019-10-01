@@ -6,22 +6,21 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:28 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 15:23:29 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/01 16:06:20 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
 
-static void reload(t_fdf *fdf)
+static void	reload(t_fdf *fdf)
 {
 	mlx_clear_window(fdf->mlx, fdf->win);
 	if (fdf->vprwv == 1)
-		mlx_put_image_to_window(fdf->mlx, fdf->win , fdf->bg->ptr, 0, 0);
-
+		mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->bg->ptr, 0, 0);
 	put_grid(fdf);
 }
 
-int key_press(int key, void *param)
+int			key_press(int key, void *param)
 {
 	t_fdf *fdf;
 
@@ -40,7 +39,7 @@ int key_press(int key, void *param)
 	return (0);
 }
 
-int key_hold(int key, void *param)
+int		key_hold(int key, void *param)
 {
 	t_fdf *fdf;
 
@@ -71,10 +70,10 @@ int key_hold(int key, void *param)
 	return (0);
 }
 
-int mouse_press(int button, int x, int y, void *param)
+int		mouse_press(int button, int x, int y, void *param)
 {
-	int test;
-	t_fdf *fdf;
+	int		test;
+	t_fdf	*fdf;
 
 	fdf = param;
 	test = x;

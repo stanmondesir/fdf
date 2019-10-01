@@ -6,7 +6,7 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:07 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 15:23:09 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/01 16:10:34 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 static t_row	*get_row(char *str, int *min_height, int *max_height)
 {
-	char 	**split;
-	int 	i;
-	t_row 	*row;
-
+	char	**split;
+	int		i;
+	t_row	*row;
 
 	row = (t_row *)ft_memalloc(sizeof(t_row));
 	i = 0;
@@ -40,27 +39,27 @@ static t_row	*get_row(char *str, int *min_height, int *max_height)
 
 t_row		*push_back_list(t_row *li, t_row *data)
 {
-    t_row *element;
-    t_row *temp;
+	t_row	*element;
+	t_row	*temp;
 
-    if (!(element = (t_row *)malloc(sizeof(t_row))))
-        return (NULL);
-    element = data;
-    element->next = NULL;
-    if (li == NULL)
-        return (element);
-    temp = li;
-    while (temp->next != NULL)
-        temp = temp->next;
-    temp->next = element;
-    return (li);
+	if (!(element = (t_row *)malloc(sizeof(t_row))))
+		return (NULL);
+	element = data;
+	element->next = NULL;
+	if (li == NULL)
+		return (element);
+	temp = li;
+	while (temp->next != NULL)
+		temp = temp->next;
+	temp->next = element;
+	return (li);
 }
 
 t_map	*read_map(char *fp)
 {
-	char 	*line;
-	t_map 	*map;
-	t_row 	*row;
+	char	*line;
+	t_map	*map;
+	t_row	*row;
 	int		fd;
 
 	map = (t_map *)malloc(sizeof(t_map));
@@ -75,11 +74,13 @@ t_map	*read_map(char *fp)
 	}
 	while (get_next_line(fd, &line) > 0)
 	{
-		row = push_back_list(row, get_row(line,&map->min_height, &map->max_height));
+		row = push_back_list(row, get_row(line, &map->min_height,
+			&map->max_height));
 		ft_strdel(&line);
 		map->height++;
 	}
-	printf("min_height : %d Max_height : %d\n", map->min_height, map->max_height);
+	printf("min_height : %d Max_height : %d\n",
+		map->min_height, map->max_height);
 	map->row = row;
 	return (map);
 }
