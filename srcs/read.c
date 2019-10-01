@@ -6,7 +6,7 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:07 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 16:10:34 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/01 16:31:38 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_map	*read_map(char *fp)
 	row = NULL;
 	if ((fd = open(fp, O_RDONLY)) == -1)
 	{
-		ft_putendl("error");
+		ft_putendl_fd("error", 2);
 		exit(0);
 	}
 	while (get_next_line(fd, &line) > 0)
@@ -79,8 +79,6 @@ t_map	*read_map(char *fp)
 		ft_strdel(&line);
 		map->height++;
 	}
-	printf("min_height : %d Max_height : %d\n",
-		map->min_height, map->max_height);
 	map->row = row;
 	return (map);
 }

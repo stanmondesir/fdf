@@ -6,7 +6,7 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:28 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 16:06:20 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/01 16:37:11 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,19 @@ int			key_press(int key, void *param)
 	return (0);
 }
 
-int		key_hold(int key, void *param)
+void		key_oui(int key, t_fdf *fdf)
+{
+	if (key == 14)
+		fdf->cos += 10;
+	else if (key == 12)
+		fdf->cos -= 10;
+	else if (key == 6)
+		fdf->sin += 10;
+	else if (key == 8)
+		fdf->sin -= 10;
+}
+
+int			key_hold(int key, void *param)
 {
 	t_fdf *fdf;
 
@@ -54,23 +66,17 @@ int		key_hold(int key, void *param)
 		fdf->x_offset -= 10;
 	else if (key == RIGHT_ARROW)
 		fdf->x_offset += 10;
-	else if (key == 14)
-		fdf->cos += 10;
-	else if (key == 12)
-		fdf->cos -= 10;
-	else if (key == 6)
-		fdf->sin += 10;
-	else if (key == 8)
-		fdf->sin -= 10;
 	else if (key == 69)
 		fdf->amplify += 1;
 	else if (key == 78)
 		fdf->amplify -= 1;
+	else
+		key_oui(key, fdf);
 	reload(fdf);
 	return (0);
 }
 
-int		mouse_press(int button, int x, int y, void *param)
+int			mouse_press(int button, int x, int y, void *param)
 {
 	int		test;
 	t_fdf	*fdf;
