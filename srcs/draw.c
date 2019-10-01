@@ -6,35 +6,35 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:39 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 16:39:43 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/01 17:03:46 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
 
-Pixel		get_delta(Pixel start, Pixel end)
+t_pixel		get_delta(t_pixel start, t_pixel end)
 {
-	Pixel delta;
+	t_pixel delta;
 
 	delta.x = abs(end.x - start.x);
 	delta.y = abs(end.y - start.y);
 	return (delta);
 }
 
-Pixel		get_slope(Pixel start, Pixel end)
+t_pixel		get_slope(t_pixel start, t_pixel end)
 {
-	Pixel slope;
+	t_pixel slope;
 
 	slope.x = start.x < end.x ? 1 : -1;
 	slope.y = start.y < end.y ? 1 : -1;
 	return (slope);
 }
 
-void		draw_line(t_fdf *fdf, Pixel start, Pixel end)
+void		draw_line(t_fdf *fdf, t_pixel start, t_pixel end)
 {
-	Pixel	delta;
-	Pixel	slope;
-	Pixel	current;
+	t_pixel	delta;
+	t_pixel	slope;
+	t_pixel	current;
 	int		err;
 	int		e2;
 
@@ -87,9 +87,9 @@ static void	parallel(int *x, int *y, int z)
 	*y = previous_y + (cte / 2) * z;
 }
 
-Pixel		get_pixel(t_fdf *fdf, t_row *row, int x, int y)
+t_pixel		get_pixel(t_fdf *fdf, t_row *row, int x, int y)
 {
-	Pixel	point;
+	t_pixel	point;
 	int		i;
 
 	i = 0;
@@ -108,9 +108,9 @@ Pixel		get_pixel(t_fdf *fdf, t_row *row, int x, int y)
 
 void		put_grid(t_fdf *fdf)
 {
-	Pixel curr;
-	Pixel next;
-	Pixel bottom;
+	t_pixel curr;
+	t_pixel next;
+	t_pixel bottom;
 	t_row *cpy;
 
 	cpy = fdf->map->row;

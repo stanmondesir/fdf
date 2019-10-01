@@ -6,7 +6,7 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:11 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 16:11:49 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/01 17:03:47 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		get_offset(t_fdf *fdf, t_map *map)
 {
 	t_row	*cpy;
 	int		y;
-	Pixel	off_point;
+	t_pixel	off_point;
 
 	cpy = map->row;
 	y = 0;

@@ -6,7 +6,7 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:34 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 16:04:54 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/01 17:03:47 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int		get_light(int start, int end, double percentage)
 	return ((int)((1 - percentage) * start + percentage * end));
 }
 
-int				get_color(Pixel current, Pixel start, Pixel end, Pixel delta)
+int				get_color(t_pixel current, t_pixel start, t_pixel end, t_pixel delta)
 {
 	int		red;
 	int		green;

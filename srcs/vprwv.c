@@ -6,20 +6,20 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:13 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 16:13:05 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/01 17:06:03 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
 
-Image	*ft_background(t_fdf *fdf, char *fp)
+t_image	*ft_background(t_fdf *fdf, char *fp)
 {
-	Image	*img;
+	t_image	*img;
 	int		bpp;
 	int		size_line;
 	int		endian;
 
-	img = (Image *)malloc(sizeof(Image));
+	img = (t_image *)malloc(sizeof(t_image));
 	img->ptr = mlx_xpm_file_to_image(fdf->mlx, fp, &img->width, &img->height);
 	img->data = mlx_get_data_addr(img->ptr, &bpp, &size_line, &endian);
 	printf("Width height : %d %d\n", img->width, img->height);
