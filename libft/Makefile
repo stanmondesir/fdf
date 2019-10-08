@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sdelvenn <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: sdelvenn <sdelvenn@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/22 17:45:36 by sdelvenn          #+#    #+#              #
-#    Updated: 2019/01/03 14:02:23 by sdelvenn         ###   ########.fr        #
+#    Updated: 2019/10/07 17:30:06 by smondesi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,8 @@ ft_putchar_fd.c \
 ft_putstr_fd.c \
 ft_putendl_fd.c \
 ft_putnbr_fd.c \
-get_next_line.c
+get_next_line.c \
+ft_free_tab.c
 
 OBJ=$(SRC:.c=.o)
 

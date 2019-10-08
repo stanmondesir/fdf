@@ -6,11 +6,31 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 16:28:47 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 16:29:53 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/07 16:31:31 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
+
+void	del_fdf(t_fdf *fdf)
+{
+	t_row	*row;
+	int		i;
+
+	row = fdf->map->row;
+	i = -1;
+	while (row->next)
+	{
+		ft_memdel((void *)&row->content);
+		row = row->next;
+	}
+	ft_memdel((void *)&row);
+	ft_memdel((void *)&fdf->map);
+	ft_memdel((void *)&fdf->bg);
+	free(fdf->mlx);
+	free(fdf->win);
+	ft_memdel((void *)&fdf);
+}
 
 int		give_up(void *param)
 {
@@ -19,7 +39,8 @@ int		give_up(void *param)
 	fdf = param;
 	if (fdf->vprwv == 1)
 		system("pkill afplay");
-	exit(1);
+	del_fdf(fdf);
+	exit(0);
 	return (0);
 }
 

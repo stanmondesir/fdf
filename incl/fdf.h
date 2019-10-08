@@ -6,7 +6,7 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 16:49:16 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 17:06:10 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/07 17:40:15 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct		s_fdf {
 	char			*win_name;
 	int				mode;
 	int				palette;
-	t_image			*img;
 	t_map			*map;
 	int				map_height;
 	int				spacing;
@@ -73,6 +72,9 @@ typedef struct		s_fdf {
 	int				lol_x;
 	t_image			*bg;
 	int				vprwv;
+	t_pixel			delta;
+	t_pixel			slope;
+	t_pixel			current;
 }					t_fdf;
 
 /*

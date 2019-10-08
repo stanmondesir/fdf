@@ -6,7 +6,7 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:39 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 17:36:48 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/07 17:37:31 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,32 +32,29 @@ t_pixel		get_slope(t_pixel start, t_pixel end)
 
 void		draw_line(t_fdf *fdf, t_pixel start, t_pixel end)
 {
-	t_pixel	delta;
-	t_pixel	slope;
-	t_pixel	current;
 	int		err;
 	int		e2;
 
-	delta = get_delta(start, end);
-	slope = get_slope(start, end);
-	current = start;
-	err = (delta.x > delta.y ? delta.x : -delta.y) / 2;
+	fdf->delta = get_delta(start, end);
+	fdf->slope = get_slope(start, end);
+	fdf->current = start;
+	err = (fdf->delta.x > fdf->delta.y ? fdf->delta.x : -fdf->delta.y) / 2;
 	while (1)
 	{
-		mlx_pixel_put(fdf->mlx, fdf->win, current.x, current.y,
-						get_color(current, start, end, delta));
-		if (current.x == end.x && current.y == end.y)
+		mlx_pixel_put(fdf->mlx, fdf->win, fdf->current.x, fdf->current.y,
+			get_color(fdf->current, start, end, fdf->delta));
+		if (fdf->current.x == end.x && fdf->current.y == end.y)
 			break ;
 		e2 = err;
-		if (e2 > -delta.x)
+		if (e2 > -fdf->delta.x)
 		{
-			err -= delta.y;
-			current.x += slope.x;
+			err -= fdf->delta.y;
+			fdf->current.x += fdf->slope.x;
 		}
-		if (e2 < delta.y)
+		if (e2 < fdf->delta.y)
 		{
-			err += delta.x;
-			current.y += slope.y;
+			err += fdf->delta.x;
+			fdf->current.y += fdf->slope.y;
 		}
 	}
 }
@@ -105,36 +102,42 @@ t_pixel		get_pixel(t_fdf *fdf, t_row *row, int x, int y)
 	return (point);
 }
 
-void		put_grid(t_fdf *fdf)
+static void	print_row(t_fdf *fdf, t_row *cpy)
 {
 	t_pixel curr;
 	t_pixel next;
 	t_pixel bottom;
+
+	fdf->x = 0;
+	while (fdf->x < cpy->len)
+	{
+		curr = get_pixel(fdf, cpy, fdf->x, fdf->y);
+		if (fdf->x + 1 < cpy->len)
+			next = get_pixel(fdf, cpy, fdf->x + 1, fdf->y);
+		if (cpy->next != NULL)
+			bottom = get_pixel(fdf, cpy->next, fdf->x, fdf->y + 1);
+		if (cpy->next == NULL && (fdf->x != cpy->len - 1))
+			draw_line(fdf, curr, next);
+		else if (fdf->x == cpy->len - 1)
+			draw_line(fdf, curr, bottom);
+		else
+		{
+			draw_line(fdf, curr, next);
+			draw_line(fdf, curr, bottom);
+		}
+		fdf->x++;
+	}
+}
+
+void		put_grid(t_fdf *fdf)
+{
 	t_row	*cpy;
 
 	cpy = fdf->map->row;
 	fdf->y = 0;
 	while (cpy != NULL)
 	{
-		fdf->x = 0;
-		while (fdf->x < cpy->len)
-		{
-			curr = get_pixel(fdf, cpy, fdf->x, fdf->y);
-			if (fdf->x + 1 < cpy->len)
-				next = get_pixel(fdf, cpy, fdf->x + 1, fdf->y);
-			if (cpy->next != NULL)
-				bottom = get_pixel(fdf, cpy->next, fdf->x, fdf->y + 1);
-			if (cpy->next == NULL && (fdf->x != cpy->len - 1))
-				draw_line(fdf, curr, next);
-			else if (fdf->x == cpy->len - 1)
-				draw_line(fdf, curr, bottom);
-			else
-			{
-				draw_line(fdf, curr, next);
-				draw_line(fdf, curr, bottom);
-			}
-			fdf->x++;
-		}
+		print_row(fdf, cpy);
 		fdf->y++;
 		cpy = cpy->next;
 	}

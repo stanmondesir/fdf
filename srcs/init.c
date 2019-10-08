@@ -6,7 +6,7 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:22 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 16:07:40 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/07 16:27:39 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ t_fdf	*init_fdf(char *map_path)
 {
 	t_fdf *fdf;
 
-	fdf = (t_fdf *)ft_memalloc(sizeof(t_fdf));
+	if (!(fdf = (t_fdf *)ft_memalloc(sizeof(t_fdf))))
+		exit(1);
 	fdf->map = read_map(map_path);
 	fdf->mlx = mlx_init();
 	fdf->win_width = 1920;

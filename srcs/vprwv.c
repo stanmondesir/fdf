@@ -6,7 +6,7 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:13 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 17:06:03 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/07 17:17:16 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void	vprwv(t_fdf *fdf)
 {
 	if (fdf->vprwv == 0)
 	{
-		system("afplay ./assets/hello.mp3&");
+		if (access("./assets/fdf_bg.xpm", F_OK) != 0)
+			exit(1);
 		fdf->bg = ft_background(fdf, "./assets/fdf_bg.xpm");
+		system("afplay ./assets/hello.mp3&");
 		fdf->vprwv = 1;
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: smondesi <smondesi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:23:07 by smondesi          #+#    #+#             */
-/*   Updated: 2019/10/01 16:38:30 by smondesi         ###   ########.fr       */
+/*   Updated: 2019/10/07 17:30:59 by smondesi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,26 @@ static t_row	*get_row(char *str, int *min_height, int *max_height)
 	int		i;
 	t_row	*row;
 
-	row = (t_row *)ft_memalloc(sizeof(t_row));
-	i = 0;
+	if (!(row = (t_row *)ft_memalloc(sizeof(t_row))))
+		exit(1);
+	i = -1;
 	row->len = 0;
-	split = ft_strsplit(str, ' ');
+	if (!(split = ft_strsplit(str, ' ')))
+		exit(1);
 	while (split[row->len] != 0)
 		row->len++;
-	row->content = (int *)malloc(sizeof(int) * (row->len));
-	while (split[i] != NULL)
+	if (!(row->content = (int *)malloc(sizeof(int) * (row->len))))
+		exit(-1);
+	while (split[++i] != NULL)
 	{
 		row->content[i] = ft_atoi(split[i]);
 		if (row->content[i] > *max_height)
 			*max_height = row->content[i];
 		if (row->content[i] < *min_height)
 			*min_height = row->content[i];
-		i++;
 	}
+	i = -1;
+	ft_free_tab(split);
 	return (row);
 }
 
@@ -42,8 +46,6 @@ t_row			*push_back_list(t_row *li, t_row *data)
 	t_row	*element;
 	t_row	*temp;
 
-	if (!(element = (t_row *)malloc(sizeof(t_row))))
-		return (NULL);
 	element = data;
 	element->next = NULL;
 	if (li == NULL)
@@ -62,7 +64,8 @@ t_map			*read_map(char *fp)
 	t_row	*row;
 	int		fd;
 
-	map = (t_map *)malloc(sizeof(t_map));
+	if (!(map = (t_map *)malloc(sizeof(t_map))))
+		exit(1);
 	map->height = 0;
 	map->max_height = 0;
 	map->min_height = 0;

@@ -1,5 +1,5 @@
 NAME = fdf
-FLAGS = -Wall -Wextra -Werror -fsanitize=address
+FLAGS = -Wall -Wextra -Werror #-fsanitize=address
 
 MLX_DIR = ./minilibx_macos
 MLX = -L$(MLX_DIR) -lmlx -framework OpenGL -framework Appkit
@@ -16,6 +16,7 @@ SRC = main.c \
 	gradient.c \
 	vprwv.c \
 	palette.c \
+	hooks.c\
 	debug.c
 
 FILES = $(addprefix $(SRC_DIR),$(SRC))
